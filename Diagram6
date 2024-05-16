@@ -1,0 +1,44 @@
+import csv
+import matplotlib.pyplot as plt
+
+def generate_hobbies_certification_diagram(file_path):
+    # Initialize a dictionary to store combinations of hobby and certification
+    combinations = {}
+
+    # Read data from the file
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        next(reader)  # Skip the header row if exists
+        for row in reader:
+            hobby = row[8].strip()  # Assuming hobbies are in the 9th column
+            certification = row[0].strip()  # Assuming certification is in the 1st column
+            combination_key = f'{hobby}_{certification}'
+            if combination_key not in combinations:
+                combinations[combination_key] = 0
+            combinations[combination_key] += 1
+
+    # Extract unique hobbies and certifications
+    hobbies = set()
+    certifications = set()
+    for combination in combinations.keys():
+        hobby, certification = combination.split('_')
+        hobbies.add(hobby)
+        certifications.add(certification)
+
+    # Generate the diagram
+    fig, ax = plt.subplots()
+
+    for hobby in hobbies:
+        counts = [combinations.get(f'{hobby}_{certification}', 0) for certification in certifications]
+        ax.bar(list(certifications), counts, label=hobby)
+
+    ax.set_xlabel('Certification')
+    ax.set_ylabel('Number of Students')
+    ax.set_title('Relationship between Hobbies and Certification')
+    ax.legend()
+
+    plt.show()
+
+# Example usage:
+file_path = '/content/drive/MyDrive/Student Attitude and Behavior.csv'  # Update with your file path
+generate_hobbies_certification_diagram(file_path)
