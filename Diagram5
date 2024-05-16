@@ -1,0 +1,30 @@
+import csv
+import matplotlib.pyplot as plt
+
+def generate_hobbies_diagram(file_path):
+    # Initialize counters for each hobby
+    hobby_counts = {'Video Games': 0, 'Cinema': 0, 'Reading books': 0, 'Sports': 0}
+
+    # Read data from the file
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        next(reader)  # Skip the header row if exists
+        for row in reader:
+            # Assuming 9th column contains hobbies
+            hobby = row[8].strip()  # strip() removes any leading/trailing whitespace
+            if hobby in hobby_counts:
+                hobby_counts[hobby] += 1
+
+    # Generate the diagram
+    labels = hobby_counts.keys()
+    counts = hobby_counts.values()
+
+    plt.bar(labels, counts)
+    plt.xlabel('Hobbies')
+    plt.ylabel('Number of Students')
+    plt.title('Hobbies of Students')
+    plt.show()
+
+# Example usage:
+file_path = '/content/drive/MyDrive/Student Attitude and Behavior.csv'  # Update with your file path
+generate_hobbies_diagram(file_path)
