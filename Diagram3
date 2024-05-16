@@ -1,0 +1,30 @@
+import csv
+import matplotlib.pyplot as plt
+
+
+file_path = '/content/drive/MyDrive/Student Attitude and Behavior.csv'
+
+
+willingness_percent = []
+
+
+with open(file_path, 'r') as file:
+    csv_reader = csv.reader(file)
+    next(csv_reader)
+    for row in csv_reader:
+        willingness = float(row[13].strip('%'))
+        willingness_percent.append(willingness)
+
+
+plt.figure(figsize=(10, 6))
+
+#plt.boxplot(willingness_percent, patch_artist=True, notch=True, vert=False, boxprops=dict(facecolor='skyblue'))
+
+plt.boxplot(willingness_percent, patch_artist=True, boxprops=dict(facecolor='skyblue'))
+
+plt.xlabel('Willingness Percent')
+plt.ylabel('Frequency')
+plt.title('Boxplot of Willingness Percent')
+
+plt.tight_layout()
+plt.show()
