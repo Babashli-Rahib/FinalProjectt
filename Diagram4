@@ -1,0 +1,12 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv('/content/drive/MyDrive/Student Attitude and Behavior.csv')
+
+college_marks = data.iloc[:, 7]
+
+plt.figure(figsize=(8, 6))
+plt.boxplot(college_marks, vert=False)
+plt.xlabel('College Marks')
+plt.title('Boxplot of College Marks')
+plt.show()
